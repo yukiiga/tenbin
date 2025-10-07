@@ -43,12 +43,12 @@ export default function TitleScreen({ onStart }) {
   const selectedDifficulty = difficulties.find(d => d.value === difficulty);
 
   return (
-    <div className="min-h-screen bg-[#0a1628] bg-[linear-gradient(rgba(6,182,212,0.03)_1px,transparent_1px),linear-gradient(90deg,rgba(6,182,212,0.03)_1px,transparent_1px)] bg-[size:20px_20px]">
-      <div className="flex items-center justify-center p-8 min-h-screen">
-        <div className="w-full max-w-4xl text-center">
-          <div className="mb-12">
-            <Scale className="w-40 h-40 mx-auto text-cyan-400 mb-8 opacity-80" strokeWidth={1} />
-            <h1 className="text-8xl font-bold text-white mb-4 tracking-[0.3em]" style={{ fontFamily: 'serif' }}>
+    <div className="w-full min-h-screen bg-[#0a1628] bg-[linear-gradient(rgba(6,182,212,0.03)_1px,transparent_1px),linear-gradient(90deg,rgba(6,182,212,0.03)_1px,transparent_1px)] bg-[size:20px_20px] overflow-y-auto">
+      <div className="w-full py-8 px-4 sm:px-8">
+        <div className="w-full max-w-4xl mx-auto text-center">
+          <div className="mb-8 sm:mb-12">
+            <Scale className="w-32 h-32 sm:w-40 sm:h-40 mx-auto text-cyan-400 mb-6 sm:mb-8 opacity-80" strokeWidth={1} />
+            <h1 className="text-6xl sm:text-8xl font-bold text-white mb-4 tracking-[0.3em]" style={{ fontFamily: 'serif' }}>
               てんびん
             </h1>
             <div className="text-xs tracking-[0.5em] text-cyan-400 mb-2">[GAME]</div>
@@ -56,15 +56,15 @@ export default function TitleScreen({ onStart }) {
 
           <div className="space-y-6 mb-8">
             {/* プレイヤー人数選択 */}
-            <div className="bg-slate-900/60 backdrop-blur-sm rounded-lg p-8 border border-cyan-900/30">
-              <label className="block text-white text-xl mb-6 flex items-center justify-center gap-3">
-                <Users className="w-7 h-7 text-cyan-400" />
+            <div className="bg-slate-900/60 backdrop-blur-sm rounded-lg p-6 sm:p-8 border border-cyan-900/30">
+              <label className="block text-white text-lg sm:text-xl mb-4 sm:mb-6 flex items-center justify-center gap-3">
+                <Users className="w-6 h-6 sm:w-7 sm:h-7 text-cyan-400" />
                 プレイヤー人数
               </label>
               <select
                 value={playerCount}
                 onChange={(e) => setPlayerCount(Number(e.target.value))}
-                className="w-full bg-slate-800 text-white rounded-lg p-5 text-2xl border-2 border-cyan-500/50 focus:outline-none focus:border-cyan-400 cursor-pointer"
+                className="w-full bg-slate-800 text-white rounded-lg p-4 sm:p-5 text-xl sm:text-2xl border-2 border-cyan-500/50 focus:outline-none focus:border-cyan-400 cursor-pointer"
               >
                 {[1, 2, 3, 4, 5].map(num => (
                   <option key={num} value={num}>{num}人</option>
@@ -78,11 +78,11 @@ export default function TitleScreen({ onStart }) {
             </div>
 
             {/* 難易度選択 */}
-            <div className="bg-slate-900/60 backdrop-blur-sm rounded-lg p-8 border border-cyan-900/30">
-              <label className="block text-white text-xl mb-6">
+            <div className="bg-slate-900/60 backdrop-blur-sm rounded-lg p-6 sm:p-8 border border-cyan-900/30">
+              <label className="block text-white text-lg sm:text-xl mb-4 sm:mb-6">
                 CPU難易度
               </label>
-              <div className="grid grid-cols-3 gap-4">
+              <div className="grid grid-cols-3 gap-2 sm:gap-4">
                 {difficulties.map(diff => {
                   const Icon = diff.icon;
                   const isSelected = difficulty === diff.value;
@@ -90,17 +90,17 @@ export default function TitleScreen({ onStart }) {
                     <button
                       key={diff.value}
                       onClick={() => setDifficulty(diff.value)}
-                      className={`p-6 rounded-lg transition-all border-2 ${
+                      className={`p-4 sm:p-6 rounded-lg transition-all border-2 ${
                         isSelected 
                           ? `${diff.bgColor} ${diff.borderColor} scale-105` 
                           : 'bg-slate-800 border-slate-700 hover:bg-slate-700'
                       }`}
                     >
-                      <Icon className={`w-12 h-12 mx-auto mb-3 ${isSelected ? 'text-white' : diff.color}`} />
-                      <div className={`text-2xl font-bold mb-2 ${isSelected ? 'text-white' : diff.color}`}>
+                      <Icon className={`w-8 h-8 sm:w-12 sm:h-12 mx-auto mb-2 sm:mb-3 ${isSelected ? 'text-white' : diff.color}`} />
+                      <div className={`text-lg sm:text-2xl font-bold mb-1 sm:mb-2 ${isSelected ? 'text-white' : diff.color}`}>
                         {diff.label}
                       </div>
-                      <div className={`text-sm ${isSelected ? 'text-white/80' : 'text-slate-400'}`}>
+                      <div className={`text-xs sm:text-sm ${isSelected ? 'text-white/80' : 'text-slate-400'}`}>
                         {diff.description}
                       </div>
                     </button>
@@ -109,8 +109,8 @@ export default function TitleScreen({ onStart }) {
               </div>
               
               {/* 難易度説明 */}
-              <div className="mt-6 p-4 bg-slate-800/50 rounded-lg border border-slate-700">
-                <div className={`text-lg font-bold mb-2 ${selectedDifficulty.color}`}>
+              <div className="mt-4 sm:mt-6 p-4 bg-slate-800/50 rounded-lg border border-slate-700">
+                <div className={`text-base sm:text-lg font-bold mb-2 ${selectedDifficulty.color}`}>
                   {selectedDifficulty.label}モード
                 </div>
                 <div className="text-slate-300 text-sm">
@@ -124,7 +124,7 @@ export default function TitleScreen({ onStart }) {
 
           <button
             onClick={() => onStart(playerCount, difficulty)}
-            className="bg-cyan-600 hover:bg-cyan-500 text-white px-16 py-5 rounded-lg text-2xl font-bold transition-all transform hover:scale-105"
+            className="w-full sm:w-auto bg-cyan-600 hover:bg-cyan-500 text-white px-12 sm:px-16 py-4 sm:py-5 rounded-lg text-xl sm:text-2xl font-bold transition-all transform hover:scale-105 mb-8"
           >
             ゲームスタート
           </button>
