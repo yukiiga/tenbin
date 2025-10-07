@@ -7,15 +7,12 @@
 [![License](https://img.shields.io/badge/License-MIT-blue?style=for-the-badge)](LICENSE)
 [![React](https://img.shields.io/badge/React-18.2.0-61DAFB?style=for-the-badge&logo=react)](https://reactjs.org/)
 
-> 🎯 **プレイする / Play Now**: https://your-username.github.io/tenbin-game/
-
----
+> 🎯 **プレイする / Play Now**: https://yukiiga.github.io/tenbin/
 
 <div align="center">
-  <img src="./docs/images/game-overview.png" alt="てんびん ゲーム画面" width="50%">
+  <img src="./docs/images/game-overview.png" alt="てんびん ゲーム画面" width="70%">
 </div>
 
----
 
 ## 📢 更新情報 / Updates
 
