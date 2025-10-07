@@ -1,5 +1,3 @@
-// src/components/NumberSelectScreen.jsx
-
 import React, { useState } from 'react';
 import { Clock, Home } from 'lucide-react';
 import icon1 from '../assets/icon1.png';
@@ -38,16 +36,16 @@ export default function NumberSelectScreen({ player, onSelect, timeLeft, onBackT
   const isUrgent = timeLeft <= 30;
 
   return (
-    <div className="fixed inset-0 bg-[#0a1628] bg-[linear-gradient(rgba(6,182,212,0.03)_1px,transparent_1px),linear-gradient(90deg,rgba(6,182,212,0.03)_1px,transparent_1px)] bg-[size:20px_20px]">
-      <div className="h-full flex flex-col p-3">
+    <div className="w-full h-screen bg-[#0a1628] bg-[linear-gradient(rgba(6,182,212,0.03)_1px,transparent_1px),linear-gradient(90deg,rgba(6,182,212,0.03)_1px,transparent_1px)] bg-[size:20px_20px] flex flex-col overflow-hidden">
+      <div className="flex-1 flex flex-col p-3 min-h-0">
         {/* ヘッダー - 固定 */}
         <div className="flex items-center justify-between mb-2 flex-shrink-0">
           <div className="flex items-center gap-2">
             <PlayerIcon icon={player.icon} size="w-10 h-10" />
-            <h2 className="text-xl font-bold text-white">{player.name}</h2>
+            <h2 className="text-lg sm:text-xl font-bold text-white truncate">{player.name}</h2>
           </div>
           <div className="flex items-center gap-2">
-            <div className={`flex items-center gap-1 text-lg font-bold ${
+            <div className={`flex items-center gap-1 text-base sm:text-lg font-bold ${
               isUrgent ? 'text-red-400' : 'text-cyan-400'
             }`}>
               <Clock className="w-4 h-4" />
@@ -67,24 +65,24 @@ export default function NumberSelectScreen({ player, onSelect, timeLeft, onBackT
         {selectedNumber !== null && (
           <div className="text-center mb-2 flex-shrink-0">
             <div className="inline-block bg-slate-900/60 border-2 border-cyan-500 rounded-lg px-6 py-1">
-              <div className="text-3xl font-bold text-cyan-300">{selectedNumber}</div>
+              <div className="text-2xl sm:text-3xl font-bold text-cyan-300">{selectedNumber}</div>
             </div>
           </div>
         )}
 
         {/* 数字グリッド - スクロール可能エリア */}
-        <div className="flex-1 min-h-0 mb-2">
+        <div className="flex-1 min-h-0 mb-2 overflow-hidden">
           <div className="h-full bg-slate-900/40 backdrop-blur-sm rounded-lg p-2 border border-cyan-900/30">
-            <div className="h-full overflow-y-auto custom-scrollbar">
-              <div className="grid grid-cols-10 gap-1 p-1">
+            <div className="h-full overflow-y-auto overflow-x-hidden custom-scrollbar" style={{ WebkitOverflowScrolling: 'touch' }}>
+              <div className="grid grid-cols-5 sm:grid-cols-10 gap-1.5 sm:gap-1 p-1">
                 {numbers.map(num => (
                   <button
                     key={num}
                     onClick={() => setSelectedNumber(num)}
-                    className={`aspect-square rounded-md font-bold text-sm transition-all ${
+                    className={`aspect-square rounded-md font-bold text-xs sm:text-sm transition-all ${
                       selectedNumber === num
                         ? 'bg-cyan-500 text-white scale-105 shadow-lg shadow-cyan-500/50'
-                        : 'bg-slate-800/80 text-slate-300 hover:bg-slate-700 border border-slate-700'
+                        : 'bg-slate-800/80 text-slate-300 hover:bg-slate-700 active:bg-slate-600 border border-slate-700'
                     }`}
                   >
                     {num}
@@ -99,9 +97,9 @@ export default function NumberSelectScreen({ player, onSelect, timeLeft, onBackT
         <button
           onClick={handleConfirm}
           disabled={selectedNumber === null}
-          className={`w-full py-2.5 rounded-lg text-lg font-bold transition-all flex-shrink-0 ${
+          className={`w-full py-2.5 sm:py-3 rounded-lg text-base sm:text-lg font-bold transition-all flex-shrink-0 ${
             selectedNumber !== null
-              ? 'bg-cyan-600 hover:bg-cyan-500 text-white'
+              ? 'bg-cyan-600 hover:bg-cyan-500 active:bg-cyan-700 text-white'
               : 'bg-slate-800 text-slate-600 cursor-not-allowed'
           }`}
         >

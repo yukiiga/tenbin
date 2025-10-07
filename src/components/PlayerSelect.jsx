@@ -1,5 +1,3 @@
-// src/components/PlayerSelect.jsx
-
 import React, { useState } from 'react';
 import { Home } from 'lucide-react';
 import icon1 from '../assets/icon1.png';
@@ -63,38 +61,38 @@ export default function PlayerSelect({ playerCount, onComplete, onBackToTitle })
   };
 
   return (
-    <div className="fixed inset-0 bg-[#0a1628] bg-[linear-gradient(rgba(6,182,212,0.03)_1px,transparent_1px),linear-gradient(90deg,rgba(6,182,212,0.03)_1px,transparent_1px)] bg-[size:20px_20px]">
-      <div className="h-full flex items-center justify-center p-8">
-        <div className="w-full max-w-3xl">
-          <div className="flex items-center justify-between mb-10">
-            <h2 className="text-4xl font-bold text-white">
+    <div className="w-full min-h-screen bg-[#0a1628] bg-[linear-gradient(rgba(6,182,212,0.03)_1px,transparent_1px),linear-gradient(90deg,rgba(6,182,212,0.03)_1px,transparent_1px)] bg-[size:20px_20px] overflow-y-auto">
+      <div className="w-full py-6 px-4 sm:px-8">
+        <div className="w-full max-w-3xl mx-auto">
+          <div className="flex items-center justify-between mb-6 sm:mb-10">
+            <h2 className="text-2xl sm:text-4xl font-bold text-white">
               プレイヤー {currentIndex + 1} の設定
             </h2>
             <button
               onClick={onBackToTitle}
-              className="bg-slate-800 hover:bg-slate-700 text-white px-4 py-2 rounded-lg transition-all flex items-center gap-2"
+              className="bg-slate-800 hover:bg-slate-700 text-white px-3 py-2 sm:px-4 sm:py-2 rounded-lg transition-all flex items-center gap-2 text-sm sm:text-base"
             >
-              <Home className="w-5 h-5" />
-              タイトルに戻る
+              <Home className="w-4 h-4 sm:w-5 sm:h-5" />
+              <span className="hidden sm:inline">タイトルに戻る</span>
             </button>
           </div>
 
-          <div className="bg-slate-900/60 backdrop-blur-sm rounded-lg p-8 border border-cyan-900/30">
-            <div className="mb-8">
-              <label className="block text-white text-xl mb-4">名前</label>
+          <div className="bg-slate-900/60 backdrop-blur-sm rounded-lg p-6 sm:p-8 border border-cyan-900/30 mb-6">
+            <div className="mb-6 sm:mb-8">
+              <label className="block text-white text-lg sm:text-xl mb-3 sm:mb-4">名前</label>
               <input
                 type="text"
                 value={name}
                 onChange={(e) => setName(e.target.value)}
                 placeholder={`プレイヤー${currentIndex + 1}`}
-                className="w-full bg-slate-800 text-white rounded-lg p-4 text-xl border-2 border-cyan-500/50 focus:outline-none focus:border-cyan-400 placeholder-slate-500"
+                className="w-full bg-slate-800 text-white rounded-lg p-3 sm:p-4 text-lg sm:text-xl border-2 border-cyan-500/50 focus:outline-none focus:border-cyan-400 placeholder-slate-500"
                 maxLength={10}
               />
             </div>
 
-            <div className="mb-8">
-              <label className="block text-white text-xl mb-4">アイコン</label>
-              <div className="grid grid-cols-4 gap-4">
+            <div className="mb-6 sm:mb-8">
+              <label className="block text-white text-lg sm:text-xl mb-3 sm:mb-4">アイコン</label>
+              <div className="grid grid-cols-2 sm:grid-cols-4 gap-3 sm:gap-4">
                 {icons.map(icon => (
                   <button
                     key={icon}
@@ -105,7 +103,7 @@ export default function PlayerSelect({ playerCount, onComplete, onBackToTitle })
                         : 'bg-slate-800 hover:bg-slate-700'
                     }`}
                   >
-                    <PlayerIcon icon={icon} size="w-24 h-24 mx-auto" />
+                    <PlayerIcon icon={icon} size="w-20 h-20 sm:w-24 sm:h-24 mx-auto" />
                   </button>
                 ))}
               </div>
@@ -113,7 +111,7 @@ export default function PlayerSelect({ playerCount, onComplete, onBackToTitle })
 
             <button
               onClick={handleNext}
-              className="w-full bg-cyan-600 hover:bg-cyan-500 text-white px-8 py-5 rounded-lg text-2xl font-bold transition-all"
+              className="w-full bg-cyan-600 hover:bg-cyan-500 text-white px-6 sm:px-8 py-4 sm:py-5 rounded-lg text-xl sm:text-2xl font-bold transition-all"
             >
               {players.length + 1 < playerCount ? '次へ' : 'ゲーム開始'}
             </button>
