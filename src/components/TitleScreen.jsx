@@ -43,8 +43,8 @@ export default function TitleScreen({ onStart }) {
   const selectedDifficulty = difficulties.find(d => d.value === difficulty);
 
   return (
-    <div className="fixed inset-0 bg-[#0a1628] bg-[linear-gradient(rgba(6,182,212,0.03)_1px,transparent_1px),linear-gradient(90deg,rgba(6,182,212,0.03)_1px,transparent_1px)] bg-[size:20px_20px] overflow-hidden">
-      <div className="h-full flex items-center justify-center p-8">
+    <div className="min-h-screen bg-[#0a1628] bg-[linear-gradient(rgba(6,182,212,0.03)_1px,transparent_1px),linear-gradient(90deg,rgba(6,182,212,0.03)_1px,transparent_1px)] bg-[size:20px_20px]">
+      <div className="flex items-center justify-center p-8 min-h-screen">
         <div className="w-full max-w-4xl text-center">
           <div className="mb-12">
             <Scale className="w-40 h-40 mx-auto text-cyan-400 mb-8 opacity-80" strokeWidth={1} />
