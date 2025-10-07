@@ -1,6 +1,7 @@
 // src/components/ResultScreen.jsx
 
 import React from 'react';
+import { Home } from 'lucide-react';
 import icon1 from '../assets/icon1.png';
 import icon2 from '../assets/icon2.png';
 import icon3 from '../assets/icon3.png';
@@ -21,7 +22,7 @@ const PlayerIcon = ({ icon, size = "w-20 h-20" }) => {
   );
 };
 
-export default function ResultScreen({ result, players, round, onNext }) {
+export default function ResultScreen({ result, players, round, onNext, onBackToTitle }) {
   const newlyEliminated = players.filter(p => p.eliminated && p.score === -10);
   const activePlayers = players.filter(p => !p.eliminated || newlyEliminated.includes(p));
 
@@ -29,6 +30,18 @@ export default function ResultScreen({ result, players, round, onNext }) {
     <div className="fixed inset-0 bg-[#0a1628] bg-[linear-gradient(rgba(6,182,212,0.03)_1px,transparent_1px),linear-gradient(90deg,rgba(6,182,212,0.03)_1px,transparent_1px)] bg-[size:20px_20px] overflow-auto">
       <div className="min-h-full flex items-center justify-center p-8">
         <div className="w-full max-w-7xl">
+          {/* ヘッダー */}
+          <div className="flex items-center justify-between mb-8">
+            <h2 className="text-4xl font-bold text-white">第{round}回戦 結果</h2>
+            <button
+              onClick={onBackToTitle}
+              className="bg-slate-800 hover:bg-slate-700 text-white px-4 py-2 rounded-lg transition-all flex items-center gap-2"
+            >
+              <Home className="w-5 h-5" />
+              タイトルに戻る
+            </button>
+          </div>
+
           {/* WIN表示 */}
           {result.winners.length > 0 && (
             <div className="text-center mb-8">
@@ -117,7 +130,6 @@ export default function ResultScreen({ result, players, round, onNext }) {
                 const isWinner = result.winners.includes(p.id);
                 const penalty = isInvalid ? -1 : (!isWinner ? (result.isPerfect ? -2 : -1) : 0);
                 
-                // 更新前のスコアを使用
                 const oldScore = result.oldScores?.[p.id] ?? 0;
                 const newScore = oldScore + penalty;
                 const isNewlyEliminated = newlyEliminated.includes(p);

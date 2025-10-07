@@ -1,4 +1,7 @@
+// src/components/PlayerSelect.jsx
+
 import React, { useState } from 'react';
+import { Home } from 'lucide-react';
 import icon1 from '../assets/icon1.png';
 import icon2 from '../assets/icon2.png';
 import icon3 from '../assets/icon3.png';
@@ -18,7 +21,7 @@ const PlayerIcon = ({ icon, size = "w-20 h-20" }) => {
   );
 };
 
-export default function PlayerSelect({ playerCount, onComplete }) {
+export default function PlayerSelect({ playerCount, onComplete, onBackToTitle }) {
   const [players, setPlayers] = useState([]);
   const [currentIndex, setCurrentIndex] = useState(0);
   const [name, setName] = useState('');
@@ -63,9 +66,18 @@ export default function PlayerSelect({ playerCount, onComplete }) {
     <div className="fixed inset-0 bg-[#0a1628] bg-[linear-gradient(rgba(6,182,212,0.03)_1px,transparent_1px),linear-gradient(90deg,rgba(6,182,212,0.03)_1px,transparent_1px)] bg-[size:20px_20px]">
       <div className="h-full flex items-center justify-center p-8">
         <div className="w-full max-w-3xl">
-          <h2 className="text-4xl font-bold text-white text-center mb-10">
-            プレイヤー {currentIndex + 1} の設定
-          </h2>
+          <div className="flex items-center justify-between mb-10">
+            <h2 className="text-4xl font-bold text-white">
+              プレイヤー {currentIndex + 1} の設定
+            </h2>
+            <button
+              onClick={onBackToTitle}
+              className="bg-slate-800 hover:bg-slate-700 text-white px-4 py-2 rounded-lg transition-all flex items-center gap-2"
+            >
+              <Home className="w-5 h-5" />
+              タイトルに戻る
+            </button>
+          </div>
 
           <div className="bg-slate-900/60 backdrop-blur-sm rounded-lg p-8 border border-cyan-900/30">
             <div className="mb-8">

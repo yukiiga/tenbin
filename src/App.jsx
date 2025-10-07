@@ -31,6 +31,7 @@ const PlayerIcon = ({ icon, size = "w-20 h-20" }) => {
 export default function App() {
   const [screen, setScreen] = useState('title');
   const [playerCount, setPlayerCount] = useState(5);
+  const [difficulty, setDifficulty] = useState('normal'); // 追加
   const [players, setPlayers] = useState([]);
   const [round, setRound] = useState(1);
   const [currentPlayerIndex, setCurrentPlayerIndex] = useState(0);
@@ -59,8 +60,10 @@ export default function App() {
     handleNumberSelect(randomChoice);
   };
 
-  const handleStart = (count) => {
+  // 修正: 難易度を受け取る
+  const handleStart = (count, diff) => {
     setPlayerCount(count);
+    setDifficulty(diff);
     setScreen('rules');
   };
 
@@ -101,7 +104,8 @@ export default function App() {
     const cpuChoices = [];
     activePlayers.forEach(player => {
       if (player.isCPU) {
-        const choice = getCPUChoice(round, 'normal', activeRules, currentPlayers, cpuChoices);
+        // 修正: difficultyを渡す
+        const choice = getCPUChoice(round, difficulty, activeRules, currentPlayers, cpuChoices);
         cpuChoices.push({ playerId: player.id, number: choice });
       }
     });
@@ -136,7 +140,8 @@ export default function App() {
     const cpuChoices = [];
     activePlayers.forEach(player => {
       if (player.isCPU) {
-        const choice = getCPUChoice(round, 'normal', activeRules, players, cpuChoices);
+        // 修正: difficultyを渡す
+        const choice = getCPUChoice(round, difficulty, activeRules, players, cpuChoices);
         cpuChoices.push({ playerId: player.id, number: choice });
       }
     });
@@ -179,7 +184,6 @@ export default function App() {
   const calculateResult = (finalChoices, currentPlayers) => {
     const roundResult = calculateWinner(finalChoices, currentPlayers, activeRules);
     
-    // 更新前のスコアを保存
     const oldScores = {};
     currentPlayers.forEach(p => {
       oldScores[p.id] = p.score;
@@ -234,6 +238,19 @@ export default function App() {
     }
   };
 
+  // 追加: タイトルに戻る関数
+  const handleBackToTitle = () => {
+    if (window.confirm('タイトル画面に戻りますか？\n現在のゲーム進行状況は失われます。')) {
+      setScreen('title');
+      setPlayers([]);
+      setRound(1);
+      setEliminatedCount(0);
+      setChoices([]);
+      setResult(null);
+      setDifficulty('normal');
+    }
+  };
+
   const activePlayers = players.filter(p => !p.eliminated);
   const currentPlayer = activePlayers[currentPlayerIndex];
 
@@ -242,11 +259,19 @@ export default function App() {
       {screen === 'title' && <TitleScreen onStart={handleStart} />}
       
       {screen === 'rules' && (
-        <RuleScreen onNext={handleRulesNext} eliminatedCount={eliminatedCount} />
+        <RuleScreen 
+          onNext={handleRulesNext} 
+          eliminatedCount={eliminatedCount}
+          onBackToTitle={handleBackToTitle}
+        />
       )}
       
       {screen === 'playerSelect' && (
-        <PlayerSelect playerCount={playerCount} onComplete={handlePlayersComplete} />
+        <PlayerSelect 
+          playerCount={playerCount} 
+          onComplete={handlePlayersComplete}
+          onBackToTitle={handleBackToTitle}
+        />
       )}
       
       {screen === 'numberSelect' && currentPlayer && (
@@ -254,6 +279,7 @@ export default function App() {
           player={currentPlayer} 
           onSelect={handleNumberSelect} 
           timeLeft={timeLeft}
+          onBackToTitle={handleBackToTitle}
         />
       )}
       
@@ -263,6 +289,7 @@ export default function App() {
           players={players} 
           round={round} 
           onNext={handleNextRound}
+          onBackToTitle={handleBackToTitle}
         />
       )}
       
@@ -283,6 +310,9 @@ export default function App() {
                   </div>
                   <div className="text-2xl text-white">
                     {round}回戦を勝ち抜きました
+                  </div>
+                  <div className="text-xl text-slate-400 mt-4">
+                    難易度: {difficulty === 'easy' ? 'Easy' : difficulty === 'normal' ? 'Normal' : 'Hard'}
                   </div>
                 </div>
               )}
@@ -314,14 +344,7 @@ export default function App() {
               </div>
 
               <button
-                onClick={() => {
-                  setScreen('title');
-                  setPlayers([]);
-                  setRound(1);
-                  setEliminatedCount(0);
-                  setChoices([]);
-                  setResult(null);
-                }}
+                onClick={handleBackToTitle}
                 className="bg-cyan-600 hover:bg-cyan-500 text-white px-16 py-5 rounded-lg text-2xl font-bold transition-all"
               >
                 タイトルに戻る
