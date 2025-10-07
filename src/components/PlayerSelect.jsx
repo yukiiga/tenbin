@@ -1,3 +1,5 @@
+// src/components/PlayerSelect.jsx
+
 import React, { useState } from 'react';
 import { Home } from 'lucide-react';
 import icon1 from '../assets/icon1.png';
@@ -61,8 +63,8 @@ export default function PlayerSelect({ playerCount, onComplete, onBackToTitle })
   };
 
   return (
-    <div className="w-full min-h-screen bg-[#0a1628] bg-[linear-gradient(rgba(6,182,212,0.03)_1px,transparent_1px),linear-gradient(90deg,rgba(6,182,212,0.03)_1px,transparent_1px)] bg-[size:20px_20px] overflow-y-auto">
-      <div className="w-full py-6 px-4 sm:px-8">
+    <div className="w-full min-h-screen bg-[#0a1628] bg-[linear-gradient(rgba(6,182,212,0.03)_1px,transparent_1px),linear-gradient(90deg,rgba(6,182,212,0.03)_1px,transparent_1px)] bg-[size:20px_20px]">
+      <div className="w-full min-h-screen py-6 px-4 sm:px-8">
         <div className="w-full max-w-3xl mx-auto">
           <div className="flex items-center justify-between mb-6 sm:mb-10">
             <h2 className="text-2xl sm:text-4xl font-bold text-white">
@@ -70,7 +72,7 @@ export default function PlayerSelect({ playerCount, onComplete, onBackToTitle })
             </h2>
             <button
               onClick={onBackToTitle}
-              className="bg-slate-800 hover:bg-slate-700 text-white px-3 py-2 sm:px-4 sm:py-2 rounded-lg transition-all flex items-center gap-2 text-sm sm:text-base"
+              className="bg-slate-800 hover:bg-slate-700 text-white px-3 py-2 sm:px-4 sm:py-2 rounded-lg transition-all flex items-center gap-2 text-sm sm:text-base flex-shrink-0"
             >
               <Home className="w-4 h-4 sm:w-5 sm:h-5" />
               <span className="hidden sm:inline">タイトルに戻る</span>
